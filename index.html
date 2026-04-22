@@ -21,81 +21,9 @@
       border-radius: 20px;
       padding: 24px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-      width: 320px;
+      width: 360px;
+      transition: width 0.3s ease;
     }
-
-    .display {
-      background: #0f3460;
-      border-radius: 12px;
-      padding: 20px 16px 12px;
-      margin-bottom: 20px;
-      text-align: right;
-    }
-
-    .display .expression {
-      color: #a0aec0;
-      font-size: 14px;
-      min-height: 20px;
-      margin-bottom: 6px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .display .result {
-      color: #e2e8f0;
-      font-size: 36px;
-      font-weight: 300;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    button {
-      padding: 18px;
-      border: none;
-      border-radius: 12px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.1s, opacity 0.1s;
-      font-family: inherit;
-    }
-
-    button:active { transform: scale(0.93); }
-
-    .btn-number {
-      background: #1a1a2e;
-      color: #e2e8f0;
-    }
-
-    .btn-operator {
-      background: #0f3460;
-      color: #63b3ed;
-      font-size: 20px;
-    }
-
-    .btn-equals {
-      background: #e94560;
-      color: white;
-      font-weight: 500;
-    }
-
-    .btn-clear {
-      background: #533483;
-      color: #e2e8f0;
-    }
-
-    .btn-wide {
-      grid-column: span 2;
-    }
-
-    button:hover { opacity: 0.85; }
 
     .brand {
       text-align: center;
@@ -123,6 +51,97 @@
       color: rgba(160, 174, 192, 0.5);
       margin-top: 3px;
     }
+
+    .mode-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .mode-btn {
+      background: #0f3460;
+      color: #63b3ed;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .mode-btn:hover { background: #1a4a7a; }
+    .mode-btn.active { background: #a855f7; color: white; }
+
+    .display {
+      background: #0f3460;
+      border-radius: 12px;
+      padding: 20px 16px 12px;
+      margin-bottom: 16px;
+      text-align: right;
+    }
+
+    .display .expression {
+      color: #a0aec0;
+      font-size: 13px;
+      min-height: 20px;
+      margin-bottom: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .display .result {
+      color: #e2e8f0;
+      font-size: 36px;
+      font-weight: 300;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sci-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
+    }
+
+    .sci-buttons.visible {
+      max-height: 300px;
+      opacity: 1;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.1s;
+      font-family: inherit;
+    }
+
+    button:active { transform: scale(0.93); }
+    button:hover { opacity: 0.85; }
+
+    .btn-number  { background: #1a1a2e; color: #e2e8f0; }
+    .btn-operator { background: #0f3460; color: #63b3ed; font-size: 18px; }
+    .btn-equals  { background: #e94560; color: white; font-weight: 500; }
+    .btn-clear   { background: #533483; color: #e2e8f0; }
+    .btn-sci     { background: #1e3a5f; color: #a78bfa; font-size: 13px; }
+    .btn-wide    { grid-column: span 2; }
   </style>
 </head>
 <body>
@@ -131,10 +150,35 @@
       <div class="brand-name">DavidovskyLTD</div>
       <span class="brand-tag">precision tools</span>
     </div>
+
+    <div class="mode-toggle">
+      <button class="mode-btn" id="modeBtn" onclick="toggleMode()">SCI</button>
+    </div>
+
     <div class="display">
       <div class="expression" id="expression"></div>
       <div class="result" id="result">0</div>
     </div>
+
+    <!-- Scientific buttons (hidden by default) -->
+    <div class="sci-buttons" id="sciButtons">
+      <button class="btn-sci" onclick="sciFunc('sin')">sin</button>
+      <button class="btn-sci" onclick="sciFunc('cos')">cos</button>
+      <button class="btn-sci" onclick="sciFunc('tan')">tan</button>
+      <button class="btn-sci" onclick="sciFunc('sqrt')">√</button>
+
+      <button class="btn-sci" onclick="sciFunc('log')">log</button>
+      <button class="btn-sci" onclick="sciFunc('ln')">ln</button>
+      <button class="btn-sci" onclick="sciFunc('square')">x²</button>
+      <button class="btn-sci" onclick="sciFunc('inv')">1/x</button>
+
+      <button class="btn-sci" onclick="sciFunc('fact')">n!</button>
+      <button class="btn-sci" onclick="sciFunc('abs')">|x|</button>
+      <button class="btn-sci" onclick="insertConstant(Math.PI)">π</button>
+      <button class="btn-sci" onclick="insertConstant(Math.E)">e</button>
+    </div>
+
+    <!-- Standard buttons -->
     <div class="buttons">
       <button class="btn-clear" onclick="clearAll()">AC</button>
       <button class="btn-clear" onclick="toggleSign()">+/-</button>
@@ -167,13 +211,12 @@
     let previous = null;
     let operator = null;
     let resetNext = false;
+    let sciMode = false;
 
-    const resultEl = document.getElementById('result');
+    const resultEl     = document.getElementById('result');
     const expressionEl = document.getElementById('expression');
 
-    function updateDisplay() {
-      resultEl.textContent = current;
-    }
+    function updateDisplay() { resultEl.textContent = current; }
 
     function appendNumber(num) {
       if (resetNext) { current = '0'; resetNext = false; }
@@ -192,15 +235,15 @@
       previous = parseFloat(current);
       operator = op;
       resetNext = true;
-      const symbols = { '+': '+', '-': '−', '*': '×', '/': '÷' };
-      expressionEl.textContent = `${previous} ${symbols[op]}`;
+      const sym = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+      expressionEl.textContent = `${previous} ${sym[op]}`;
     }
 
     function calculate(chain = false) {
       if (operator === null || previous === null) return;
       const curr = parseFloat(current);
-      const symbols = { '+': '+', '-': '−', '*': '×', '/': '÷' };
-      if (!chain) expressionEl.textContent = `${previous} ${symbols[operator]} ${curr} =`;
+      const sym = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+      if (!chain) expressionEl.textContent = `${previous} ${sym[operator]} ${curr} =`;
       let result;
       switch (operator) {
         case '+': result = previous + curr; break;
@@ -209,8 +252,42 @@
         case '/': result = curr === 0 ? 'Error' : previous / curr; break;
       }
       current = result === 'Error' ? 'Error' : String(parseFloat(result.toFixed(10)));
-      operator = null;
-      previous = null;
+      operator = null; previous = null; resetNext = true;
+      updateDisplay();
+    }
+
+    function sciFunc(fn) {
+      const val = parseFloat(current);
+      let result;
+      switch (fn) {
+        case 'sin':    result = Math.sin(val * Math.PI / 180); break;
+        case 'cos':    result = Math.cos(val * Math.PI / 180); break;
+        case 'tan':    result = Math.tan(val * Math.PI / 180); break;
+        case 'sqrt':   result = val < 0 ? 'Error' : Math.sqrt(val); break;
+        case 'log':    result = val <= 0 ? 'Error' : Math.log10(val); break;
+        case 'ln':     result = val <= 0 ? 'Error' : Math.log(val); break;
+        case 'square': result = val * val; break;
+        case 'inv':    result = val === 0 ? 'Error' : 1 / val; break;
+        case 'fact':   result = factorial(Math.round(val)); break;
+        case 'abs':    result = Math.abs(val); break;
+      }
+      const labels = { sin:'sin', cos:'cos', tan:'tan', sqrt:'√', log:'log', ln:'ln', square:'²', inv:'1/', fact:'!', abs:'|x|' };
+      expressionEl.textContent = fn === 'square' ? `${val}²` : fn === 'fact' ? `${val}!` : fn === 'inv' ? `1/${val}` : `${labels[fn]}(${val})`;
+      current = result === 'Error' ? 'Error' : String(parseFloat(result.toFixed(10)));
+      resetNext = true;
+      updateDisplay();
+    }
+
+    function factorial(n) {
+      if (n < 0 || n > 170) return 'Error';
+      if (n === 0 || n === 1) return 1;
+      let r = 1;
+      for (let i = 2; i <= n; i++) r *= i;
+      return r;
+    }
+
+    function insertConstant(val) {
+      current = String(parseFloat(val.toFixed(10)));
       resetNext = true;
       updateDisplay();
     }
@@ -229,6 +306,12 @@
     function percentage() {
       current = String(parseFloat(current) / 100);
       updateDisplay();
+    }
+
+    function toggleMode() {
+      sciMode = !sciMode;
+      document.getElementById('sciButtons').classList.toggle('visible', sciMode);
+      document.getElementById('modeBtn').classList.toggle('active', sciMode);
     }
 
     document.addEventListener('keydown', e => {
