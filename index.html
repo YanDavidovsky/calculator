@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
+  <title>DavidovskyLTD Calculator</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -96,10 +96,29 @@
     }
 
     button:hover { opacity: 0.85; }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .brand span {
+      color: #e94560;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .brand span em {
+      color: #63b3ed;
+      font-style: normal;
+    }
   </style>
 </head>
 <body>
   <div class="calculator">
+    <div class="brand"><span>Davidovsky<em>LTD</em></span></div>
     <div class="display">
       <div class="expression" id="expression"></div>
       <div class="result" id="result">0</div>
