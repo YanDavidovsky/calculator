@@ -142,6 +142,24 @@
     .btn-clear   { background: #533483; color: #e2e8f0; }
     .btn-sci     { background: #1e3a5f; color: #a78bfa; font-size: 13px; }
     .btn-wide    { grid-column: span 2; }
+
+    .love-note {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 12px;
+      color: rgba(160, 174, 192, 0.6);
+      line-height: 1.6;
+    }
+
+    .love-note strong {
+      background: linear-gradient(135deg, #e94560, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -203,6 +221,10 @@
       <button class="btn-number btn-wide" onclick="appendNumber('0')">0</button>
       <button class="btn-number" onclick="appendDecimal()">.</button>
       <button class="btn-equals" onclick="calculate()">=</button>
+    </div>
+
+    <div class="love-note">
+      <strong>Yuliya</strong>, I will love you<br>even if you don't know math! ❤️
     </div>
   </div>
 
