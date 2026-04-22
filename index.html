@@ -99,26 +99,38 @@
 
     .brand {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
 
-    .brand span {
-      color: #e94560;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 2px;
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
       text-transform: uppercase;
+      background: linear-gradient(135deg, #e94560, #a855f7, #63b3ed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .brand span em {
-      color: #63b3ed;
-      font-style: normal;
+    .brand-tag {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(160, 174, 192, 0.5);
+      margin-top: 3px;
     }
   </style>
 </head>
 <body>
   <div class="calculator">
-    <div class="brand"><span>Davidovsky<em>LTD</em></span></div>
+    <div class="brand">
+      <div class="brand-name">DavidovskyLTD</div>
+      <span class="brand-tag">precision tools</span>
+    </div>
     <div class="display">
       <div class="expression" id="expression"></div>
       <div class="result" id="result">0</div>
